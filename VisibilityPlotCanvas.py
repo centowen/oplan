@@ -11,13 +11,14 @@ from readProjects import readProjects
 class VisibilityPlotCanvas(FigureCanvas):
 
 
-    def __init__(self, parent=None, width=5, height=4, dpi=100, *args, **kwargs):
+    def __init__(self, parent=None, sources=None, width=5, height=4, dpi=100, *args, **kwargs):
         self.frontend = 'SHFI-2'
         self.min_separation = 50
         self.min_grade = 2.0
         self.begin_shift = 17.
         self.end_shift = 18+4
         self.select_proj = None
+        self.sources = sources
 
         print('in VisibilityPlot.__init__(self, ...)')
         self.fig = Figure(figsize=(width, height), dpi=dpi)
@@ -80,22 +81,24 @@ class VisibilityPlotCanvas(FigureCanvas):
                     self.objs.extend(projobjs)
 
         self.time = np.linspace(0,24,1000)
-        self.axes.clear()
         self.eles = getElevation(self.time, self.objs)
 
     def update_figure(self):
         self.compute_coordinates()
-        for (obj, ele) in zip(self.objs, self.eles):
-            self.axes.plot(self.time, ele, label=obj.name)
+        self.axes.clear()
+        for (obj, ele) in zip(self.sources.objs, self.sources.eles):
+            self.axes.plot(self.time, ele, label=obj.name, color='#888888')
 #             pl.text(time[np.argmax(ele)], np.max(ele)+0.1, obj.name, horizontalalignment='center')
         self.axes.plot(self.time, 0*self.time+30, 'r')
-        self.axes.plot(self.time, 0*self.time+60, 'c')
-        self.axes.plot(self.time, 0*self.time+70, 'b')
+#         self.axes.plot(self.time, 0*self.time+60, 'c')
+#         self.axes.plot(self.time, 0*self.time+70, 'b')
+        self.axes.plot(self.time, 0*self.time+80, 'b')
 #         pl.plot([BEGIN_SHIFT, BEGIN_SHIFT], [-1,91], 'k--')
 #         pl.plot([END_SHIFT, END_SHIFT], [-1,91], 'k--')
         self.axes.axis([0, 24, -1, 91])
         self.axes.set_xlabel('UT [h]')
         self.axes.set_ylabel('Altitude [deg]')
+        self.fig.patch.set_facecolor('white')
 
         
 
