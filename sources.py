@@ -65,11 +65,57 @@ class SourceDB(object):
                 projobjs.append(obj)
         return projobjs
 
-        
-class Source(object):
-    def __init__(self, name, *args, **kwargs):
-        super(Source, self).__init__(*args, **kwargs)
+def readEphemFile(filename):
+    catfile = open(filename)
+    projobjs = []
+    for line in catfile:
+        obj = ephem.readdb(line)
+        if obj is not None:
+            projobjs.append(obj)
+    return projobjs
 
-        self.name = name
-        self.ephem = None
+def findFilename(project):
+    filename = '/home/lindroos/jobb/apex/'+project['period']+'/ephems/o-'+project['id'].lower()+'-2014.edb'
+    if os.access(filename, os.F_OK):
+        return filename
 
+    if filename[-10] == 'a' and not os.access(filename, os.F_OK):
+        f = list(filename)
+        f[-10] = 'b'
+        filename = ''.join(f)
+    if os.access(filename, os.F_OK):
+        return filename
+
+    if filename[-10] == 'b' and not os.access(filename, os.F_OK):
+        f = list(filename)
+        f[-10] = 'a'
+        filename = ''.join(f)
+    if os.access(filename, os.F_OK):
+        return filename
+
+    return None
+
+
+def readSources(projectperiods):
+    projects = []
+    for projectperiod in projectperiods:
+        periodprojects = readProjects(projectperiod['file'])
+        for project in periodprojects:
+            project['period'] = projectperiod['name']
+        projects.extend(periodprojects)
+
+    sources = []
+    for project in projects:
+        filename = findFilename(project)
+
+        if filename is not None:
+            ephems = readEphemFile(filename)
+            
+            for ephemObj in ephems:
+                source = {}
+                source['project'] = project
+                source['ephem'] = ephemObj
+                source['visible'] = False
+                source['highlight'] = False
+                sources.append(source)
+    return sources

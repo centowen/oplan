@@ -35,7 +35,7 @@
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
-      <widget class="QTreeView" name="treeView"/>
+      <widget class="QTreeView" name="sourceSelector"/>
       <widget class="QWidget" name="visPlotCanvas" native="true"/>
      </widget>
     </item>
@@ -47,16 +47,28 @@
      <x>0</x>
      <y>0</y>
      <width>912</width>
-     <height>23</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionFlip_activity"/>
     <addaction name="actionExit"/>
    </widget>
+   <widget class="QMenu" name="menuFrontend">
+    <property name="title">
+     <string>Frontend</string>
+    </property>
+    <addaction name="actionAPEX_1"/>
+    <addaction name="actionAPEX_2"/>
+    <addaction name="actionAPEX_3"/>
+    <addaction name="actionLABOCCA"/>
+    <addaction name="actionArTeMis"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuFrontend"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionExit">
@@ -65,6 +77,39 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionAPEX_1">
+   <property name="text">
+    <string>APEX-1</string>
+   </property>
+  </action>
+  <action name="actionAPEX_2">
+   <property name="text">
+    <string>APEX-2</string>
+   </property>
+  </action>
+  <action name="actionAPEX_3">
+   <property name="text">
+    <string>APEX-3</string>
+   </property>
+  </action>
+  <action name="actionLABOCCA">
+   <property name="text">
+    <string>LABOCCA</string>
+   </property>
+  </action>
+  <action name="actionArTeMis">
+   <property name="text">
+    <string>ArTeMis</string>
+   </property>
+  </action>
+  <action name="actionFlip_activity">
+   <property name="text">
+    <string>Flip activity</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
    </property>
   </action>
  </widget>

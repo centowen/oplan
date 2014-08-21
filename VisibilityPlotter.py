@@ -40,7 +40,21 @@ def readCat(filename):
     return objs
         
 
-def getElevation(time, objs, date=today, obs=apex):
+def getElevation(time, obj, date=today, obs=apex):
+    elevation = time.copy()
+    it = np.nditer(time, flags=['f_index'])
+    while not it.finished:
+        h = int(it[0])
+        m = int((it[0]-h)*60)
+        s = ((it[0]-h)*60-m)*60
+        obs.date = date + ' ' + '{0}:{1}:{2}'.format(h,m,s)
+        obj.compute(obs)
+        elevation[it.index] = obj.alt*180/pi
+        it.iternext()
+    return elevation
+
+
+def getElevations(time, objs, date=today, obs=apex):
     elevations = []
     for obj in objs:
         elevation = time.copy()
