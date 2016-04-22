@@ -19,10 +19,12 @@ from sourceTree import SourceTree
 def main():
     app = QtGui.QApplication(sys.argv)
     projectperiods = []
-    projectperiods.append({'file': '/home/lindroos/jobb/apex/P94/APEX-P94-PB.csv' ,
-        'name': 'P94'})
-    projectperiods.append({'file': '/home/lindroos/jobb/apex/P93/APEX-P93.csv' ,
-        'name': 'P93'})
+    projectperiods.append({'file': 'sthml_course.csv' ,
+        'name': 'sthml'})
+#     projectperiods.append({'file': '/home/lindroos/jobb/apex/P94/APEX-P94-PB.csv' ,
+#         'name': 'P94'})
+#     projectperiods.append({'file': '/home/lindroos/jobb/apex/P93/APEX-P93.csv' ,
+#         'name': 'P93'})
 #     sources = SourceDB(periods)
     sources = readSources(projectperiods)
 

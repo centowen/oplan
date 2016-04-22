@@ -7,8 +7,10 @@ import matplotlib.pylab as pl
 import os
 
 apex = ephem.Observer()
-apex.lat = '-23:00:20.8'
-apex.lon = '-67:45:33.0'
+# apex.lat = '-23:00:20.8'
+# apex.lon = '-67:45:33.0'
+apex.lat = '57:23:45.0046'
+apex.lon = '11:55:34.8719'
 apex.elevation = 5105
 
 f9301 = '/home/lindroos/jobb/apex/P94/cats/o-094.f-9301-2014.cat'
